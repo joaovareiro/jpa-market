@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import connection.JpaConnectionFactory;
 import market.model.persistence.Category;
 import market.model.persistence.Product;
+import services.CategoryService;
 import services.ProductService;
 
 public class Program {
@@ -19,10 +20,10 @@ public class Program {
 	public static void main(String[] args) {
 		EntityManager entityManager = new JpaConnectionFactory().geEntityManager();
 		ProductService productService = new ProductService(entityManager);
-		Product product = new Product("Doritos","Tradicional 150g",new BigDecimal(14.99), new Category("Alimentos"));
+		CategoryService categoryService  = new CategoryService(entityManager);
+		Product product = new Product("Cheetos","Requeijao 180g",new BigDecimal(12.99), new Category("Alimentos"));
 		productService.create(product);
-		
-//		productService.delete(2L);
+		productService.delete(1L);
 	}
 
 }
