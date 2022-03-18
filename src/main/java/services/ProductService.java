@@ -30,6 +30,7 @@ public class ProductService {
 		this.categoryService = new CategoryService(entityManager);
 	}
 
+
 	public void create(Product product) {
 		this.LOG.info("Preparando para a criação de um produto");
 		if (product == null) {
