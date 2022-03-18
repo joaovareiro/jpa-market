@@ -1,6 +1,7 @@
 package market.application;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -21,9 +22,9 @@ public class Program {
 		EntityManager entityManager = new JpaConnectionFactory().geEntityManager();
 		ProductService productService = new ProductService(entityManager);
 		CategoryService categoryService  = new CategoryService(entityManager);
-		Product product = new Product("Cheetos","Requeijao 180g",new BigDecimal(12.99), new Category("Alimentos"));
-		productService.create(product);
-		productService.delete(1L);
+//		List<Product> products = productService.listByName("notebook");
+//		products.forEach(p -> System.out.println(p.toString()));
+		
 	}
 
 }
