@@ -46,7 +46,7 @@ public class ClientService {
 		try {
 			getBeginTransaction();
 			this.clientDAO.create(client);
-			commitAndCloseTransaction();
+			commitTransaction();
 			this.LOG.info("Cliente criado com sucesso");
 		} catch (Exception e) {
 			this.LOG.error("Erro ao criar um cliente, causado por" + e.getMessage());
@@ -78,7 +78,7 @@ public class ClientService {
 			throw new RuntimeException("Client not found!");
 		}
 		this.clientDAO.delete(client);
-		commitAndCloseTransaction();
+		commitTransaction();
 		this.LOG.info("Cliente deletado com sucesso!");
 	}
 	
@@ -104,7 +104,7 @@ public class ClientService {
 		client.setCpf(newClient.getCpf());
 		client.setBirthDate(newClient.getBirthDate());
 		this.LOG.info("Cliente atualizado com sucesso");
-		commitAndCloseTransaction();
+		commitTransaction();
 
 	}
 	
@@ -116,14 +116,14 @@ public class ClientService {
 	}
 	
 	public List<Client> listAll() {
-		this.LOG.info("Preparando para listar produtos");
+		this.LOG.info("Preparando para listar clientes");
 		List<Client> products = this.clientDAO.listAll();
 
 		if (products == null) {
-			this.LOG.info("Não foram encontrados produtos");
+			this.LOG.info("Não foram encontrados clientes");
 			return new ArrayList<Client>();
 		}
-		this.LOG.info("Foram encontrados " + products.size() + " produtos.");
+		this.LOG.info("Foram encontrados " + products.size() + " clientes.");
 		return products;
 	}
 
@@ -134,23 +134,22 @@ public class ClientService {
 			throw new RuntimeException("The parameter name is null");
 		}
 		
-		this.LOG.info("Preparando para buscar os produtos com o nome: " + name);
+		this.LOG.info("Preparando para buscar os clientes com o nome: " + name);
 		List<Client> products = this.clientDAO.listByName(name.toLowerCase());
 		
 		if (products == null) {
-			this.LOG.info("Não foram encontrados Produtos");
+			this.LOG.info("Não foram encontrados clientes");
 			return new ArrayList<Client>();
 		}
 		
-		this.LOG.info("Foram encontrados " + products.size() + " produtos.");
+		this.LOG.info("Foram encontrados " + products.size() + " clientes.");
 		return products;
 	}
 
 	
-	private void commitAndCloseTransaction() {
+	private void commitTransaction() {
 		this.LOG.info("Commitando e Fechando transação com o banco de dados");
 		entityManager.getTransaction().commit();
-		entityManager.close();
 	}
 
 	private void getBeginTransaction() {

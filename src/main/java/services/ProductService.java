@@ -48,17 +48,16 @@ public class ProductService {
 		try {
 			getBeginTransaction();
 			this.productDAO.create(product);
-			commitAndCloseTransaction();
+			commitTransaction();
 			this.LOG.info("Produto criado com sucesso");
 		} catch (Exception e) {
 			this.LOG.error("Erro ao criar um produto, causado por" + e.getMessage());
 		}
 	}
 
-	private void commitAndCloseTransaction() {
+	private void commitTransaction() {
 		this.LOG.info("Commitando e Fechando transação com o banco de dados");
 		entityManager.getTransaction().commit();
-		entityManager.close();
 	}
 
 	private void getBeginTransaction() {
@@ -80,7 +79,7 @@ public class ProductService {
 			throw new RuntimeException("Product not found!");
 		}
 		this.productDAO.delete(product);
-		commitAndCloseTransaction();
+		commitTransaction();
 		this.LOG.info("Produto deletado com sucesso!");
 	}
 
@@ -102,7 +101,7 @@ public class ProductService {
 		product.setPrice(newProduct.getPrice());
 		product.setCategory(this.categoryService.findByName(newProduct.getCategory().getName()));
 		this.LOG.info("Produto atualizado com sucesso");
-		commitAndCloseTransaction();
+		commitTransaction();
 
 	}
 
