@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import services.LocalDateService;
+
 @Entity
 public class Client {
 	@Id
@@ -22,10 +24,14 @@ public class Client {
 	
 	private LocalDate birthDate;
 
-	public Client(String name, String cpf, LocalDate birthDate) {
-		this.name = name;
+	public Client() {
+		
+	}
+	
+	public Client(String name, String cpf, String birthDate) {
+		this.name = name.toLowerCase();
 		this.cpf = cpf;
-		this.birthDate = birthDate;
+		this.birthDate = LocalDateService.arrumaData(birthDate);
 	}
 
 	public long getId() {
@@ -41,7 +47,7 @@ public class Client {
 	}
 
 	public void setName(String name) {
-		this.name = name.toString();
+		this.name = name.toLowerCase();
 	}
 
 	public String getCpf() {

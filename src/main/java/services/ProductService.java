@@ -67,7 +67,7 @@ public class ProductService {
 	}
 
 	public void delete(Long id) {
-		this.LOG.info("Produto encontrado com sucesso");
+
 		if (id == null) {
 			this.LOG.error("O id do produto informado está nulo");
 			throw new RuntimeException("The ID is null");

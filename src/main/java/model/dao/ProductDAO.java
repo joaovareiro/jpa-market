@@ -19,14 +19,11 @@ public class ProductDAO {
 	}
 
 	public void delete(Product product) {
-
 		this.entityManager.remove(convertToMerge(product));
-
 	}
 
 	private Product convertToMerge(Product product) {
 		return this.entityManager.merge(product);
-
 	}
 
 	public Product getByID(long id) {

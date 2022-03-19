@@ -10,8 +10,11 @@ import org.apache.logging.log4j.Logger;
 
 import connection.JpaConnectionFactory;
 import market.model.persistence.Category;
+import market.model.persistence.Client;
 import market.model.persistence.Product;
+import model.dao.ClientDAO;
 import services.CategoryService;
+import services.ClientService;
 import services.ProductService;
 
 public class Program {
@@ -22,9 +25,10 @@ public class Program {
 		EntityManager entityManager = new JpaConnectionFactory().geEntityManager();
 		ProductService productService = new ProductService(entityManager);
 		CategoryService categoryService  = new CategoryService(entityManager);
-//		List<Product> products = productService.listByName("notebook");
-//		products.forEach(p -> System.out.println(p.toString()));
-		
+		ClientService clientService = new ClientService(entityManager);
+
+		List<Client>clients = clientService.listByName("Tadeu");
+		clients.forEach(p -> System.out.println(p.toString()));
 	}
 
 }
